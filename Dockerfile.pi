@@ -1,0 +1,37 @@
+FROM kerinin/rpi-raspbian-userland
+
+RUN apt-get -y update
+RUN apt-get install -y python3-pip python3-dev wget libblas-dev liblapack-dev \
+        gfortran libjpeg8-dev zlib1g-dev libfreetype6-dev liblcms2-dev \
+        libwebp-dev tcl8.5-dev tk8.5-dev python3-tk
+# TODO: Move this stuff up
+RUN apt-get remove python-pip
+RUN easy_install3 pip
+
+RUN pip3 install numpy==1.12.1
+RUN pip3 install scipy==0.19.0
+RUN pip3 install pillow==4.1.1
+RUN pip3 install docopt==0.6.2
+RUN pip3 install tornado==4.5.1
+RUN pip3 install requests==2.17.3
+RUN pip3 install envoy==0.0.3
+
+RUN wget https://github.com/samjabrahams/tensorflow-on-raspberry-pi/releases/download/v1.1.0/tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
+RUN sudo pip3 install tensorflow-1.1.0-cp34-cp34m-linux_armv7l.whl
+
+ENV READTHEDOCS True
+RUN pip3 install picamera==1.13
+RUN apt-get install -y libhdf5-dev
+RUN pip3 install h5py==2.7.0
+RUN pip3 install Adafruit_PCA9685==1.0.1
+
+WORKDIR /donkey
+
+# First copy only setup.py, run pip install, and then copy the whole donkey dir.
+# This is so only changes to setup.py trigger a pip install.
+COPY ./setup.py .
+RUN pip install -e /donkey/[pi]
+COPY . .
+
+# Run the driver
+ENTRYPOINT ["python3", "scripts/drive.py"]

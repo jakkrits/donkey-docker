@@ -1,0 +1,5 @@
+local_resinos:
+  app-name: donkey
+  build-triggers:
+    - Dockerfile: 713d307fa9c63c6c1f3fe1b5bab229613f4b55de015f6af353ccfdb0a7f83cd8
+  environment: []
