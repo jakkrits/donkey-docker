@@ -1,5 +1,15 @@
-# Pulled from Docker Image
+----------------------------------------------------------------------------------------------------
+# Donkey
+## Grab Pi' Image from
+[Pi](http://docs.donkeycar.com/guide/install_software/)
+
+## Pulled from Docker Image
 [Docker Image](https://hub.docker.com/r/kerinin/donkey/)
+- Extract server folder out of the container
+- Docker-compose up --build (the server)
+
+----------------------------------------------------------------------------------------------------
+
 ### Donkey: a self driving library and control platform for small scale DIY vehicles. 
 ### [Build a Donkey Car.](http://www.donkeycar.com) ($200 + 2 hours)
 
